@@ -1,0 +1,43 @@
+
+
+#DashboardContentArea{
+    float: left;
+    /* background: red; */
+    position: relative;
+    margin: 30px 0 0 40px;
+}
+
+.WidgetBox{
+    width: 400px;
+    display: inline-block;
+    float: left;
+    position: relative;
+    margin-bottom: 40px;
+    padding: 10px 20px;
+    background: #ffffff;
+    border-width: 20px 1px 1px 1px;
+    border-color: #c9c9c9;
+    border-top-color: var(--primary-green);
+    border-style: solid;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    -moz-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 4px 4px 8px 0px #888888;
+}
+
+#ProjectsBox{
+    height: 382px;
+    margin-right: 40px;
+}
+
+#TasksBox{
+    height: 150px;
+}
+
+#ActivitiesBox{
+    height: 150px;
+}
+
+#TeamBox{
+    height: 300px;
+}

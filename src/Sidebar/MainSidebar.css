@@ -1,0 +1,91 @@
+
+
+#MainSidebar{
+    position: relative;
+    left: 0;
+    float: left;
+    width: 200px;
+    height: 100%;
+    background: var(--primary-green);
+    font-family: var(--primary-font-face);
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    transition: 0.5s;
+    color: #ffffff;
+    border-right: 1px solid #444444;
+}
+
+#ExpandOrCollapseButton{
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 100px;
+    right: -10px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    border: 1px solid #444444;
+    background: #ffffff;
+    padding: 2px;
+    cursor: pointer;
+    color: #444444;
+    z-index: 3;
+}
+
+#ExpandOrCollapseInnerText{
+    position: relative;
+    left: 3px;
+    top: -1.5px;
+    font-family: var(--monospace-font-face);
+}
+
+#Logo{
+    font-size: 24px;
+    display: inline-block;
+    position: relative;
+    top: -40px;
+    left: 40px;
+    color: #ffffff;
+}
+
+#SidebarMenu{
+    position: relative;
+}
+
+#CurrentTab{
+    background: #444444;
+}
+
+#SidebarMenu li{
+    width: 70%;
+    margin: 0 auto 10px auto;
+    display: block;
+    padding: 4px 10px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px 0px;
+    cursor: pointer;
+}
+
+#SidebarMenu li:hover{
+    background: #666666;
+}
+
+#SidebarMenu li a{
+    display: block;
+    color: #ffffff;
+}
+
+.SidebarMenuItemInnerText{
+    display: inline-block;
+    position: relative;
+    top: -5px;
+}
+
+.SidebarIcon{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    top: 2px;
+    margin-right: 6px;
+}

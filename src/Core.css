@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: var(--primary-font-face);
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: Eras-ITC;
+    src: url(res/Fonts/Eras-Medium-ITC.ttf);
+}
+
+@font-face {
+    font-family: Consolas;
+    src: url(res/Fonts/consola.ttf);
+}
+
+:root{
+    --primary-green: #00B35A;
+    --primary-font-face: Eras-ITC;
+    --monospace-font-face: Consolas;
+    --header-font-color: #003C0A;
+}
+
+h2{
+    color: var(--header-font-color);
+    margin-bottom: 20px;
+}
+
+h3{
+    color: var(--header-font-color);
+    margin-bottom: 10px;
+}

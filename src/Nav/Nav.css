@@ -1,0 +1,57 @@
+
+
+nav{
+    width: 100%;
+    display: block;
+    position: relative;
+    top: 0;
+    float: left;
+    background: var(--primary-green);
+    font-family: var(--primary-font-face);
+}
+
+nav ul{
+    float: right;
+    margin-right: 40px;
+}
+
+nav ul li{
+    float: right;
+    padding: 13px 0;
+    margin-left: 20px;
+}
+
+nav ul li a{
+    display: block;
+    float: left;
+    width: 24px;
+    height: 24px;
+}
+
+#profileButton{
+    background: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+#profileButton div{
+    margin-top: 5px;
+}
+
+#settingsButton{
+    background: url("../res/Icons/gear-white.svg") no-repeat center;
+    background-size: cover;
+}
+
+#appsButton{
+    background: url("../res/Icons/apps-white.svg") no-repeat center;
+    background-size: cover;
+}
+
+#searchButton{
+    background: url("../res/Icons/search-white.svg") no-repeat center;
+    background-size: cover;
+}
