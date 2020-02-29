@@ -1,111 +1,105 @@
 import React from 'react';
-import MainNav from '../Nav/MainNav.js';
 import MainSidebar from '../Sidebar/MainSidebar.js';
-import '../Core.css'
-import './Dashboard.css'
+import '../Core.css';
+import './Dashboard.css';
+import folderIcon from '../res/Icons/folder-white.svg';
+import tasksIcon from '../res/Icons/todo-white.svg';
+import activityIcon from '../res/Icons/time-white.svg';
 
+class ProjectsWidget extends React.Component {
 
-class ProjectsBox extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {  };
+        this.state = {  }
     }
 
-    render(){
-        return(
-            <div id = "ProjectsBox" class = "WidgetBox">
+    render() {
+        return (
+            <div className = "DashboardWidget">
 
-                <h3> Projects </h3>
+                <header> <img src = { folderIcon } /> Projects </header>
+
+                <ul id = "projectsList">
+
+                    adas
+
+                </ul>
 
             </div>
-        );
+        )
     }
 }
 
-class TasksBox extends React.Component {
+class TasksWidget extends React.Component {
+
     constructor(props) {
         super(props);
-
-        this.state = {  };
+        this.state = {  }
     }
 
-    render(){
-        return(
-            <div id = "TasksBox" class = "WidgetBox">
+    render() {
+        return (
+            <div className = "DashboardWidget">
 
-                <h3> My Tasks </h3>
+                <header> <img src = { tasksIcon } /> My Tasks </header>
+
+                <ul id = "tasksList">
+
+                    adas
+
+                </ul>
 
             </div>
-        );
+        )
     }
 }
 
-class TeamBox extends React.Component {
+class ActivityWidget extends React.Component {
+
     constructor(props) {
         super(props);
-
-        this.state = {  };
+        this.state = {  }
     }
 
-    render(){
-        return(
-            <div id = "TeamBox" class = "WidgetBox">
+    render() {
+        return (
+            <div className = "DashboardWidget">
 
-                <h3> My Tasks </h3>
+                <header> <img src = { activityIcon } /> Recent Activity </header>
+
+                <ul id = "recentActivityList">
+
+                    <li> Test </li>
+
+                </ul>
 
             </div>
-        );
+        )
     }
 }
 
-class ActivitiesBox extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {  };
-    }
-
-    render(){
-        return(
-            <div id = "ActivitiesBox" class = "WidgetBox">
-
-                <h3> Recent Activity </h3>
-
-            </div>
-        );
-    }
-}
 
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
         let screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-
-        this.state = { width: screenWidth-600 };
-    }
-
-    resizeDashboardContentArea = () => {
-        let screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-
-        this.setState({ width: screenWidth-250 })
+        let screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        this.state = { width: screenWidth-280, height: screenHeight-40 };
     }
 
     render() {
 		return (
             <div>
 
-                <MainNav />
                 <MainSidebar />
 
-                <div id = "DashboardContentArea" style = {{ width: this.state.width }}>
+                <div id = "dashboardContentArea" style = {{ width: this.state.width, height: this.state.height }}>
 
-                    <h2> My Dashboard </h2>
+                    <h2> My Dashboards </h2>
 
-                    <ProjectsBox />
-                    <TasksBox />
-                    <ActivitiesBox />
+                    <div id = "dashboardColumn1" className = "dashboardColumn"> <ProjectsWidget /> </div>
+                    <div id = "dashboardColumn2" className = "dashboardColumn"> <TasksWidget /> <ActivityWidget /> </div>
 
                 </div>
 

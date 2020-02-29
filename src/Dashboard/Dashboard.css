@@ -1,43 +1,63 @@
 
 
-#DashboardContentArea{
-    float: left;
-    /* background: red; */
+#dashboardContentArea{
     position: relative;
-    margin: 30px 0 0 40px;
+    display: block;
+    float: left;
+    margin-left: 40px;
+    padding-top: 40px;
+    overflow-y: auto;
 }
 
-.WidgetBox{
-    width: 400px;
+.dashboardColumn{
     display: inline-block;
     float: left;
-    position: relative;
-    margin-bottom: 40px;
-    padding: 10px 20px;
-    background: #ffffff;
-    border-width: 20px 1px 1px 1px;
-    border-color: #c9c9c9;
-    border-top-color: var(--primary-green);
-    border-style: solid;
-    -webkit-border-radius: 10px 10px 0px 0px;
-    -moz-border-radius: 10px 10px 0px 0px;
-    border-radius: 10px 10px 0px 0px;
-    box-shadow: 4px 4px 8px 0px #888888;
 }
 
-#ProjectsBox{
-    height: 382px;
+#dashboardColumn1{
     margin-right: 40px;
 }
 
-#TasksBox{
-    height: 150px;
+.DashboardWidget{
+    width: 350px;
+    margin-bottom: 20px;
 }
 
-#ActivitiesBox{
-    height: 150px;
+.DashboardWidget header{
+    background: var(--primary-gray);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 4px 4px 0 0;
 }
 
-#TeamBox{
-    height: 300px;
+.DashboardWidget header img{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
 }
+
+.DashboardWidget ul{
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #c9c9c9;
+    padding: 10px 20px;
+    overflow-y: scroll;
+}
+
+.DashboardWidget li{
+    border-bottom: 1px solid black;
+}
+
+#projectsList{
+    height: 400px;
+}
+
+#tasksList{
+    height: 160px;
+}
+
+#recentActivityList{
+    height: 160px;
+}
+

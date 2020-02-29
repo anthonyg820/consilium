@@ -23,10 +23,10 @@ a{
 }
 
 :root{
-    --primary-green: #00B35A;
+    --primary-gray: #2F4050;
     --primary-font-face: Eras-ITC;
     --monospace-font-face: Consolas;
-    --header-font-color: #003C0A;
+    --header-font-color: #2F4050;
 }
 
 h2{
