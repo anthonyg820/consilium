@@ -1,16 +1,35 @@
 import React from 'react';
 import MainSidebar from '../Sidebar/MainSidebar.js';
 import '../Core.css';
+//import getUsers from '../Core.js';
 import './Dashboard.css';
 import folderIcon from '../res/Icons/folder-white.svg';
 import tasksIcon from '../res/Icons/todo-white.svg';
 import activityIcon from '../res/Icons/time-white.svg';
 
+
 class ProjectsWidget extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { test: '' }
+    }
+    
+    getUsers = () => {
+        fetch('http://localhost:9000/users/1')
+            .then((response) => {
+                console.log("test");
+                console.log(response.json);
+                return response.json();
+            })
+            .then((response) => {
+                this.setState({ test: response[0] })
+                console.log("OUT: " + this.state.test["Email"]);
+            });
+    }
+
+    componentWillMount() {
+        this.getUsers();
     }
 
     render() {
@@ -21,7 +40,7 @@ class ProjectsWidget extends React.Component {
 
                 <ul id = "projectsList">
 
-                    adas
+                    { this.state.test["Email"] }
 
                 </ul>
 
@@ -69,7 +88,7 @@ class ActivityWidget extends React.Component {
 
                 <ul id = "recentActivityList">
 
-                    <li> Test </li>
+                    <li> asda </li>
 
                 </ul>
 
