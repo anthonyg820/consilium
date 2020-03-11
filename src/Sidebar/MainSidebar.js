@@ -20,6 +20,13 @@ class MainSidebar extends React.Component {
       height: screenHeight,
       expanded: true
     };
+
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  handleResize = () => {
+      let screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      this.setState( { height: screenHeight } )
   }
 
   expandOrCollapse = () =>{

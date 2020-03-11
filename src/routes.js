@@ -1,26 +1,22 @@
-const db = require("./ConnectToDb.js");
+import React from 'react';
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 
-const getUsers = (request, response) => {
-    db.pool.query('SELECT * FROM "Users" ORDER BY "UserId" ASC', (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
-}
 
-const getUserById = (request, response) => {
-    const id = parseInt(request.params.id)
+import Login from './Login/Login.js';
+import Home from './Dashboard/Dashboard.js';
+//import Signup from './SignUp/SignUp.js';
+//import NotFound from './NotFound/NotFound.js';
 
-    db.pool.query(`SELECT * FROM "Users" WHERE "UserId" = ${id} ORDER BY "UserId" ASC`, (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    })
-}
 
-module.exports = {
-    getUsers,
-    getUserById
-};
+const Routes = () => (
+<BrowserRouter >
+<Switch>
+<Route exact path="/" component={Home}/>
+<Route path="/home" component={Home}/>
+<Route path="/login" component={Login}/>
+{/* <Route path="/Signup" component={Signup}/>
+<Route path="*" component={NotFound}/> */}
+</Switch>
+</BrowserRouter>
+);
+export default Routes;

@@ -41,20 +41,56 @@
     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: #c9c9c9;
-    padding: 10px 20px;
-    overflow-y: scroll;
+    padding: 10px 0;
+    overflow-y: auto;
 }
 
 .DashboardWidget li{
-    border-bottom: 1px solid black;
+    float: left;
+    display: block;
+    width: 90%;
+    border-bottom: 1px solid #c9c9c9;
+    padding: 10px 5%;
+}
+
+.DashboardWidget li:last-child{
+    border-bottom: 0;
 }
 
 #projectsList{
     height: 400px;
 }
 
+#projectsList li{
+    
+}
+
+#projectsList li img{
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 10px;
+}
+
+#projectsList li div{
+    float: left;
+}
+
+#projectsList h3{
+    margin: 0;
+}
+
+#projectsList h4{
+    font-weight: normal;
+    font-size: 14px;
+}
+
 #tasksList{
     height: 160px;
+}
+
+#tasksList h5{
+    font-weight: normal;
 }
 
 #recentActivityList{

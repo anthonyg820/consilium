@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dashboard from './Dashboard/Dashboard.js';
+import Routes from './routes.js';
 import './ConnectToDb';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-    <Dashboard />, document.getElementById('root')
+    <Routes />, document.getElementById('root')
 );
 
 
