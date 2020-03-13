@@ -105,7 +105,7 @@ class ProjectsWidget extends React.Component {
                 'Content-Type': 'application/json'
               },
             body: JSON.stringify({
-                taskName: "Test task",
+                taskName: "Test task11",
                 projectId: "5",
                 createdBy: "6",
                 assignedTo: "10",

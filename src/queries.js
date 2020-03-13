@@ -177,7 +177,7 @@ const createTask = (request, response) => {
                 VALUES ('${taskName}', '${projectId}', '${createdBy}', '${assignedTo}', '${taskDescription}', '${taskDifficulty}', '${status}', TO_TIMESTAMP(${createdDate}/1000));`, (error, results) => {
         if (error) {
             //HANDLE ERROR CASES
-            if(error.code == "23505" && error.constraint == "TaskName")
+            if(error.code == "23505" && error.constraint == "Tasks_TaskName_key")
                 response.status(501).send("A task with this name already exists within this project.");
             else
                 response.status(500).send("Internal server error.");
@@ -194,6 +194,9 @@ const createTask = (request, response) => {
             response.status(200).send(`Task created successfully`)
         }
     })
+
+    //TEMPORARY COOKIE CREATION EXAMPLE
+    response.cookie("myCookie", "HEY THERE");
 }
 
 

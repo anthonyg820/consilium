@@ -24,6 +24,7 @@ a{
 
 :root{
     --primary-gray: #2F4050;
+    --primary-gray-hover: #4C6680;
     --primary-font-face: Eras-ITC;
     --monospace-font-face: Consolas;
     --header-font-color: #2F4050;

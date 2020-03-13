@@ -1,37 +1,62 @@
 
 
-#loginPageContainer{
+#registerPageContainer{
     background: var(--primary-gray);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
+    float: left;
 }
 
-#loginPageContent{
-    height: 440px;
+#registerContentContainer{
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 5000px;
+    left: 50%;
+    margin-left: -250px;
+}
+
+#leftOfRegister, #rightOfRegister{
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    float: left;
+}
+
+#leftOfRegister{
+    margin-right: 60px;
+}
+
+#registerPageRightContent{
+    height: 540px;
     position: relative;
     top: 50%;
-    margin-top: -240px;
+    margin-top: -270px;
 }
 
-#loginHeader{
+#registerHeader{
     color: #ffffff !important;
+    position: relative;
+    height: 110px;
+    top: 50%;
+    margin-top: -55px;
 }
 
-#loginHeader img{
+#registerHeader img{
     display: block;
     margin: auto;
     width: 80px;
     height: 80px;
 }
 
-#loginHeader h1{
+#registerHeader h1{
     display: block;
     margin: 0 auto 20px 0;
     text-align: center;
 }
 
-#loginContent{
+#registerContent{
     width: 300px;
     background: white;
     -webkit-border-radius: 10px;
@@ -41,14 +66,14 @@
     box-shadow: 0px 0px 8px #000000;
 }
 
-#loginForm{
+#registerForm{
     width: 80%;
     display: block;
     margin: auto;
     padding: 20px 0;
 }
 
-#loginForm label{
+#registerForm label{
     display: block;
     font-size: 14px;
     margin-bottom: 4px;
@@ -56,7 +81,7 @@
     font-family: "Arial";
 }
 
-#loginForm input[type *= "email"], #loginForm input[type *= "password"]{
+#registerForm input[type *= "email"], #registerForm input[type *= "password"], #registerForm input[type *= "text"]{
     padding: 8px 5%;
     background: #c9c9c9;
     border: 0;
@@ -70,7 +95,7 @@
     font-family: "Arial";
 }
 
-#loginForm input[type = "submit"]{
+#registerForm input[type = "button"]{
     width: 100%;
     display: block;
     text-align: center;
@@ -87,15 +112,15 @@
     font-family: "Arial";
 }
 
-#loginForm input[type = "submit"]:hover{
+#registerForm input[type = "button"]:hover{
     background: var(--primary-gray-hover);
 }
 
-#loginPageContent a{
+#registerPageRightContent a{
     color: #ffffff;
     font-family: "Arial";
     display: block;
-    width: 160px;
+    width: 230px;
     text-align: center;
     margin: 20px auto 0 auto;
 }

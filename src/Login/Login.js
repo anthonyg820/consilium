@@ -67,6 +67,7 @@ class Login extends React.Component {
                     <LoginContent />
 
                     <a id = "forgotPassword" href = "/"> Forgot password? </a>
+                    <a id = "loginToDemo" href = "/"> Login as a demo user </a>
 
                 </div>
 
