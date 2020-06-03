@@ -81,7 +81,7 @@ class RegisterContent extends React.Component {
                     <label> Last name </label>
                     <input type = "text" id = "registerLastName" />
 
-                    <label> Birthdate </label>
+                    <label> Birthdate (YYYY-MM-DD) </label>
                     <input type = "text" id = "registerBirthdate" />
 
                     <input type = "button" value = "Register" id = "registerButton" onClick = { () => this.registerNewUser() }/>

@@ -29,6 +29,30 @@ class LoginContent extends React.Component {
         super(props);
     }
 
+    async loginUser() {
+
+        let userEmail = document.getElementById("userEmail").value;
+        let userPassword = document.getElementById("userPassword").value;
+
+
+        await fetch("http://localhost:9000/login", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                email: userEmail,
+                password: userPassword
+            })
+        })
+            .then((response) => {
+                console.log("Request sent");
+                if(response.status == "200")
+                    window.location.replace("http://localhost:3000");
+            });
+    }
+
     render() {
         return(
             <div id = "loginContent">
@@ -36,10 +60,10 @@ class LoginContent extends React.Component {
                 <form id = "loginForm">
 
                     <label> Email </label>
-                    <input type = "email" />
+                    <input id = "userEmail" type = "email" />
 
                     <label> Password </label>
-                    <input type = "password" />
+                    <input id = "userPassword" type = "password" />
 
                     <input type = "submit" value = "Log In" />
 
@@ -66,8 +90,8 @@ class Login extends React.Component {
                     <LoginHeader />
                     <LoginContent />
 
-                    <a id = "forgotPassword" href = "/"> Forgot password? </a>
-                    <a id = "loginToDemo" href = "/"> Login as a demo user </a>
+                    <a id = "forgotPassword" href = "/"> Forgot password? </a> | <a id = "createAccount" href = "/register"> Create an account </a>
+                    <a id = "loginToDemo" href = "/dashboard"> Login as a demo user </a>
 
                 </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import './MainSidebar.css';
+import Modal from '../Modals/NewProject/NewProject.js';
 import logo from '../res/Icons/logo.svg';
 import dashboardIcon from '../res/Icons/dashboard-white.svg';
 import folderIcon from '../res/Icons/folder-white.svg';
@@ -9,6 +10,8 @@ import infoIcon from '../res/Icons/info-white.svg';
 import logoutIcon from '../res/Icons/logout-white.svg';
 import searchIcon from '../res/Icons/search-white.svg';
 import teamIcon from '../res/Icons/team-white.svg';
+import gearIcon from '../res/Icons/gear-white.svg';
+import personIcon from '../res/Icons/person-white.svg';
 
 class MainSidebar extends React.Component {
 
@@ -18,10 +21,17 @@ class MainSidebar extends React.Component {
     this.state = { 
       width: '200px',
       height: screenHeight,
-      expanded: true
+      expanded: true,
+      currentTab: 0,
+      isProjectModalOpen: this.props.isProjectModalOpen
     };
 
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResize);
+
+    this.childUpdate = this.childUpdate.bind(this);
+
+    console.log("Constructor: " + this.state.isProjectModalOpen);
+    
   }
 
   handleResize = () => {
@@ -31,6 +41,7 @@ class MainSidebar extends React.Component {
 
   expandOrCollapse = () =>{
     let logo = document.getElementById("logo");
+    let expandOrCollapseButton = document.getElementById("expandOrCollapseButton");
     let expandOrCollapseButtonInnerText = document.getElementById("expandOrCollapseInnerText");
     let createButton = document.getElementById("createButton");
     let sidebarListItems = document.getElementById("mainSidebarList").getElementsByTagName("li");
@@ -40,19 +51,12 @@ class MainSidebar extends React.Component {
     {//collapse the sidebar
       this.setState({ width: '60px', expanded: false })
 
-      document.getElementById("logoInnerText").style.display = "none";
-      logo.getElementsByTagName("img")[0].style.paddingLeft = "15px";
+      expandOrCollapseButton.style.left = "48px";
       expandOrCollapseButtonInnerText.innerHTML = ">";
       createButton.style.marginLeft = "0";
       createButton.style.width = "auto";
       createButton.style.padding = "10px 20px";
       createButton.getElementsByTagName("div")[0].style.display = "none";
-      
-      for(var item of sidebarListItems)
-      {
-        item.getElementsByClassName("sidebarListInnerText")[0].style.display = "none";
-        item.getElementsByTagName("img")[0].style.marginBottom = "20px";
-      }
 
       for(var item of sidebarBottomToolbarListItems)
       {
@@ -66,19 +70,12 @@ class MainSidebar extends React.Component {
     {//expand the sidebar
       this.setState({ width: '200px', expanded: true })
 
-      document.getElementById("logoInnerText").style.display = "block";
-      logo.getElementsByTagName("img")[0].style.paddingLeft = "20px";
+      expandOrCollapseButton.style.left = "188px";
       expandOrCollapseButtonInnerText.innerHTML = "<";
       createButton.style.marginLeft = "20px";
       createButton.style.width = "140px";
       createButton.style.padding = "10px";
       createButton.getElementsByTagName("div")[0].style.display = "block";
-      
-      for(var item of sidebarListItems)
-      {
-        item.getElementsByClassName("sidebarListInnerText")[0].style.display = "block";
-        item.getElementsByTagName("img")[0].style.marginBottom = "0";
-      }
 
       for(var item of sidebarBottomToolbarListItems)
       {
@@ -89,37 +86,76 @@ class MainSidebar extends React.Component {
     }
   }
 
+  updateProjectModalState() {
+    if(!this.state.isProjectModalOpen)
+        this.setState( { isProjectModalOpen: true }, () => {console.log("SIDEBAR: " + this.state.isProjectModalOpen)} );
+    else
+        this.setState( { isProjectModalOpen: false }, () => {console.log("SIDEBAR: " + this.state.isProjectModalOpen)} ) ;
+  }
+
+  childUpdate(){
+    this.setState( { isProjectModalOpen: false } );
+    this.props.parentUpdate();
+  }
+
+  componentWillMount(){
+    this.setState( { currentTab: this.props.currentTab } );
+  }
+
+  componentDidMount(){
+    let sidebarList = document.getElementById("mainSidebarList");
+
+    sidebarList.getElementsByTagName("li")[this.state.currentTab].className = "currentTab";
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState( { isProjectModalOpen: nextProps.isProjectModalOpen }, () => {
+      console.log("SIDEBAR: " + this.state.isProjectModalOpen);
+    } );
+    console.log(nextProps);
+
+  }
+
+  componentDidUpdate(){
+    
+  }
+
   render(){
     
     return (
-      <aside id = "mainSidebar" style = {{width: this.state.width, height: this.state.height}}>
-  
-          <div id = "expandOrCollapseButton" onClick = { this.expandOrCollapse }> <div id = "expandOrCollapseInnerText"> {"<"} </div> </div>
+      <div>
+        
+        <Modal isProjectModalOpen = { this.state.isProjectModalOpen }  parentUpdate = { this.childUpdate }/>
 
-          <a id = "logo" href = "/"> <img src = { logo } /> <div id = "logoInnerText"> consilium </div> </a>
+        <aside id = "mainSidebar" style = {{width: this.state.width, height: this.state.height}}>
 
-          <a id = "createButton" href = "/"> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </a>
-  
-          <ul id = "mainSidebarList">
+            <a id = "logo" href = "/dashboard"> <img src = { logo } /> <div id = "logoInnerText"> consilium </div> </a>
 
-            <li className = "currentTab"> <a href = "/"> <img src = { dashboardIcon } /> <div className = "sidebarListInnerText"> Dashboard </div> </a> </li>
-            <li> <a href = "/"> <img src = { folderIcon } /> <div className = "sidebarListInnerText"> Projects </div> </a> </li>
-            <li> <a href = "/"> <img src = { bugIcon } /> <div className = "sidebarListInnerText"> Issues </div> </a> </li>
-            <li> <a href = "/"> <img src = { teamIcon } /> <div className = "sidebarListInnerText"> Teams </div> </a> </li>
-            <li> <a href = "/"> <img src = { logoutIcon } /> <div className = "sidebarListInnerText"> Logout </div> </a> </li>
+            <div id = "createButton" onClick = { this.updateProjectModalState }> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </div>
+    
+            <ul id = "mainSidebarList">
 
-          </ul>
+              <li> <a href = "/dashboard"> <img src = { dashboardIcon } /> <div className = "sidebarListInnerText"> Dashboard </div> </a> </li>
+              <li> <a href = "/projects"> <img src = { folderIcon } /> <div className = "sidebarListInnerText"> Projects </div> </a> </li>
+              <li> <a href = "/"> <img src = { bugIcon } /> <div className = "sidebarListInnerText"> Issues </div> </a> </li>
+              <li> <a href = "/"> <img src = { teamIcon } /> <div className = "sidebarListInnerText"> Teams </div> </a> </li>
+              <li> <a href = "/login"> <img src = { logoutIcon } /> <div className = "sidebarListInnerText"> Logout </div> </a> </li>
 
-          <ul id = "sidebarBottomToolbar">
+            </ul>
 
-            <li> <a href = "/"> <img src = { searchIcon } /> </a> </li>
-            <li> <a href = "/"> <img src = { infoIcon } /> </a> </li>
-            <li> <a href = "/"> <img src = { infoIcon } /> </a> </li>
+            <ul id = "sidebarBottomToolbar">
 
-          </ul>
+              <li> <a href = "/"> <img src = { searchIcon } /> </a> </li>
+              <li> <a href = "/"> <img src = { gearIcon } /> </a> </li>
+              <li> <a href = "/"> <img src = { personIcon } /> </a> </li>
 
-      </aside>
+            </ul>
 
+        </aside>
+
+        <div id = "expandOrCollapseButton" onClick = { this.expandOrCollapse }> <div id = "expandOrCollapseInnerText"> {"<"} </div> </div>
+
+      </div>
     );
   }
 

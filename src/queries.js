@@ -1,4 +1,28 @@
 const db = require("./ConnectToDb.js");
+const app = require("./server.js");
+
+// const loginUser = (request, response) => {
+//     const { userEmail, userPassword } = request.body;
+
+//     db.pool.query(`SELECT * FROM "Users" WHERE email=${userEmail} AND password=${userPassword}`, (error, results) => {
+//         if (error) {
+//             //HANDLE ERROR CASES
+//             console.log(error);    
+//             try{
+//                 throw error;
+//             }
+//             catch(error){
+                
+//             }
+//         }
+//         else{
+//             response.status(200).send(`Login successful`);
+
+//             //CREATE AUTHENTICATION COOKIE
+//             response.cookie("myCookie", "HEY THERE");
+//         }
+//     })
+// }
 
 const getAllUsers = (request, response) => {
     db.pool.query('SELECT * FROM "Users" ORDER BY "UserId" ASC', (error, results) => {
@@ -22,7 +46,16 @@ const getUserById = (request, response) => {
 
 const getAllProjects = (request, response) => {
 
-    db.pool.query(`SELECT * FROM "Projects" ORDER BY "ProjectId" ASC`, (error, results) => {
+    db.pool.query(`SELECT 
+                "Users"."UserId", "Users"."FirstName", "Users"."LastName",        
+                "ProjectRoster"."ProjectId", "Projects"."ProjectName",
+                "Projects"."CreatedBy", "Projects"."Type", "Projects"."CreatedDate" 
+            FROM "Projects" 
+            LEFT JOIN "ProjectRoster"
+            ON "Projects"."ProjectId" = "ProjectRoster"."ProjectId"
+            LEFT JOIN "Users"
+            ON "Users"."UserId" = "ProjectRoster"."UserId"
+            ORDER BY "Projects"."ProjectName" ASC`, (error, results) => {
         if (error) {
             throw error
         }
@@ -34,15 +67,16 @@ const getUsersProjects = (request, response) => {
     const userId = parseInt(request.params.userId);
 
     db.pool.query(`SELECT             
-                "Users"."UserId", "Users"."FirstName",               
+                "Users"."UserId", "Users"."FirstName", "Users"."LastName",        
                 "ProjectRoster"."ProjectId", "Projects"."ProjectName",
-                "Projects"."CreatedBy"
+                "Projects"."CreatedBy", "Projects"."Type", "Projects"."CreatedDate"
             FROM "Users" 
             LEFT JOIN "ProjectRoster"          
             ON "Users"."UserId" = "ProjectRoster"."UserId"          
             LEFT JOIN "Projects"         
             ON "Projects"."ProjectId" = "ProjectRoster"."ProjectId"         
-            WHERE "Users"."UserId" = ${userId}`, (error, results) => {
+            WHERE "Users"."UserId" = ${userId}
+            ORDER BY "Projects"."ProjectName"`, (error, results) => {
         if (error) {
             throw error
         }
@@ -73,7 +107,8 @@ const getUsersTasks = (request, response) => {
     {
         db.pool.query(`SELECT             
                     "Tasks"."TaskId", "Tasks"."TaskDescription",             
-                    "Tasks"."TaskDifficulty", "Projects"."ProjectName"         
+                    "Tasks"."TaskDifficulty", "Tasks"."TaskName",
+                    "Projects"."ProjectName"         
                 FROM "Tasks"  
                 LEFT JOIN "Projects"
                 ON "Tasks"."ProjectId" = "Projects"."ProjectId"       
@@ -90,7 +125,8 @@ const getUsersTasks = (request, response) => {
     {
         db.pool.query(`SELECT             
                     "Tasks"."TaskId", "Tasks"."TaskDescription",             
-                    "Tasks"."TaskDifficulty", "Projects"."ProjectName"          
+                    "Tasks"."TaskDifficulty", "Tasks"."TaskName",
+                    "Projects"."ProjectName"          
                 FROM "Tasks"         
                 LEFT JOIN "Projects"
                 ON "Tasks"."ProjectId" = "Projects"."ProjectId"    

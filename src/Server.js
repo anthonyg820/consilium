@@ -5,13 +5,14 @@ const port = 9000;
 
 const queries = require("./queries.js");
 
+
+//Initialize body barser
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
@@ -25,7 +26,7 @@ app.get('/tasks/:taskId', queries.getTask);
 app.get('/projects', queries.getAllProjects);
 app.get('/projects/tasks/:projectId', queries.getAllTasksForProject);
 
+//app.post('/login', queries.loginUser);
 app.post('/users', queries.createUser);
 app.post('/projects', queries.createProject);
 app.post('/tasks', queries.createTask);
-
