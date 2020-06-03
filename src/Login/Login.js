@@ -90,7 +90,12 @@ class Login extends React.Component {
                     <LoginHeader />
                     <LoginContent />
 
-                    <a id = "forgotPassword" href = "/"> Forgot password? </a> | <a id = "createAccount" href = "/register"> Create an account </a>
+                    <div id = "loginAlternatives">  
+                    
+                        <a id = "forgotPassword" href = "/"> Forgot password? </a> | <a id = "createAccount" href = "/register"> Create an account </a>
+                    
+                    </div>
+
                     <a id = "loginToDemo" href = "/dashboard"> Login as a demo user </a>
 
                 </div>
