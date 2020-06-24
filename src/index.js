@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes.js';
-import './ConnectToDb';
+import Routes from './controller/routes.js';
+import './model/ConnectToDb';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

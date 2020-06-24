@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../Core.css';
 import '../Modal.css';
-import softwareProjectImg from '../../res/Icons/code_custom.svg';
-import businessProjectImg from '../../res/Icons/business_custom.svg';
+import softwareProjectImg from '../../../res/Icons/code_custom.svg';
+import businessProjectImg from '../../../res/Icons/business_custom.svg';
 
 
 class ModalOverlay extends React.Component {
@@ -13,7 +13,7 @@ class ModalOverlay extends React.Component {
 
     render() {
         return(
-            <div id = "overlay"></div>
+            <div id = "overlay" onClick = { () => { this.props.parentUpdate( { isProjectModalOpen: false } ) } }></div>
         )
     }
 }
@@ -29,7 +29,7 @@ class ModalHeader extends React.Component {
             <div id = "modalHeader">
 
                 <h2> Create a new project </h2>
-                <div id = "modalCloseButton" onClick = { this.props.parentUpdate }> x </div>
+                <div id = "modalCloseButton" onClick = { () => {this.props.parentUpdate( { isProjectModalOpen: false } )} }> x </div>
 
             </div>
         )
@@ -49,7 +49,7 @@ class ModalContent extends React.Component {
                 <form id = "modalForm">
 
                     <label> Project Name </label>
-                    <input type = "text" id = "registerEmail" />
+                    <input type = "text" id = "projectName" />
 
                     <label> Team </label>
                     <select id = "teamFilter" onChange = { this.props.updateProjectTableState }>
@@ -119,7 +119,7 @@ class Modal extends React.Component {
             
         }
 
-        this.childUpdate = this.childUpdate.bind(this);        
+        this.handleStateChange = this.handleStateChange.bind(this);        
     }
 
     hideNewProjectModal = () => {
@@ -138,11 +138,6 @@ class Modal extends React.Component {
         newProjectOverlay.style.display = "block";
     }
 
-    childUpdate(){
-        this.setState( { isProjectModalOpen: false } );
-        this.props.parentUpdate();
-    }
-
     componentWillReceiveProps(nextProps) {
         this.setState( { isProjectModalOpen: nextProps.isProjectModalOpen }, () => {console.log("MODAL: " + this.state.isProjectModalOpen)});
         // console.log("YUP2");
@@ -150,23 +145,27 @@ class Modal extends React.Component {
     }
     
     componentDidUpdate(){
-        console.log("Modal Updated");
-
         if(this.state.isProjectModalOpen)
             this.showNewProjectModal();
         else
             this.hideNewProjectModal();
     }
 
+    handleStateChange(newState){
+        //event.preventDefault();
+        this.setState( newState, () => { console.log("MODAL: " + this.state.isProjectModalOpen) } );
+        this.props.parentUpdate( newState );
+    }
+
     render() {
 		return (
             <div>
 
-                <ModalOverlay />
+                <ModalOverlay parentUpdate = { this.handleStateChange }/>
 
                 <div id = "modalContainer">
 
-                    <ModalHeader parentUpdate = { this.childUpdate }/>
+                    <ModalHeader parentUpdate = { this.handleStateChange }/>
                     <ModalContent />
 
                 </div>

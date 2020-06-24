@@ -2,7 +2,7 @@ import React from 'react';
 import MainSidebar from '../Sidebar/MainSidebar.js';
 import '../Core.css';
 import './Register.css';
-import logo from '../res/Icons/logo.svg';
+import logo from '../../res/Icons/logo.svg';
 
 
 class RegisterHeader extends React.Component {

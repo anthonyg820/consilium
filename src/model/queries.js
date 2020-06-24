@@ -1,5 +1,4 @@
 const db = require("./ConnectToDb.js");
-const app = require("./server.js");
 
 // const loginUser = (request, response) => {
 //     const { userEmail, userPassword } = request.body;

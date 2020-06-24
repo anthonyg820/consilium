@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 9000;
 
-const queries = require("./queries.js");
+const queries = require("../model/queries.js");
 
 
 //Initialize body barser

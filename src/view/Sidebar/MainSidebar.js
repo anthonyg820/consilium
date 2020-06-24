@@ -1,17 +1,17 @@
 import React from 'react';
 import './MainSidebar.css';
 import Modal from '../Modals/NewProject/NewProject.js';
-import logo from '../res/Icons/logo.svg';
-import dashboardIcon from '../res/Icons/dashboard-white.svg';
-import folderIcon from '../res/Icons/folder-white.svg';
-import bugIcon from '../res/Icons/bug-white.svg';
-import addIcon from '../res/Icons/add-filled-blue.svg';
-import infoIcon from '../res/Icons/info-white.svg';
-import logoutIcon from '../res/Icons/logout-white.svg';
-import searchIcon from '../res/Icons/search-white.svg';
-import teamIcon from '../res/Icons/team-white.svg';
-import gearIcon from '../res/Icons/gear-white.svg';
-import personIcon from '../res/Icons/person-white.svg';
+import logo from '../../res/Icons/logo.svg';
+import dashboardIcon from '../../res/Icons/dashboard-white.svg';
+import folderIcon from '../../res/Icons/folder-white.svg';
+import bugIcon from '../../res/Icons/bug-white.svg';
+import addIcon from '../../res/Icons/add-filled-blue.svg';
+import infoIcon from '../../res/Icons/info-white.svg';
+import logoutIcon from '../../res/Icons/logout-white.svg';
+import searchIcon from '../../res/Icons/search-white.svg';
+import teamIcon from '../../res/Icons/team-white.svg';
+import gearIcon from '../../res/Icons/gear-white.svg';
+import personIcon from '../../res/Icons/person-white.svg';
 
 class MainSidebar extends React.Component {
 
@@ -19,7 +19,7 @@ class MainSidebar extends React.Component {
     super(props);
     let screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     this.state = { 
-      width: '200px',
+      sidebarWidth: '200px',
       height: screenHeight,
       expanded: true,
       currentTab: 0,
@@ -28,7 +28,7 @@ class MainSidebar extends React.Component {
 
     window.addEventListener('resize', this.handleResize);
 
-    this.childUpdate = this.childUpdate.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
 
     console.log("Constructor: " + this.state.isProjectModalOpen);
     
@@ -36,66 +36,14 @@ class MainSidebar extends React.Component {
 
   handleResize = () => {
       let screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-      this.setState( { height: screenHeight } )
+      this.setState( { height: screenHeight } );
   }
 
   expandOrCollapse = () =>{
-    let logo = document.getElementById("logo");
-    let expandOrCollapseButton = document.getElementById("expandOrCollapseButton");
-    let expandOrCollapseButtonInnerText = document.getElementById("expandOrCollapseInnerText");
-    let createButton = document.getElementById("createButton");
-    let sidebarListItems = document.getElementById("mainSidebarList").getElementsByTagName("li");
-    let sidebarBottomToolbarListItems = document.getElementById("sidebarBottomToolbar").getElementsByTagName("li");
-
-    if(this.state.expanded == true)
-    {//collapse the sidebar
-      this.setState({ width: '60px', expanded: false })
-
-      expandOrCollapseButton.style.left = "48px";
-      expandOrCollapseButtonInnerText.innerHTML = ">";
-      createButton.style.marginLeft = "0";
-      createButton.style.width = "auto";
-      createButton.style.padding = "10px 20px";
-      createButton.getElementsByTagName("div")[0].style.display = "none";
-
-      for(var item of sidebarBottomToolbarListItems)
-      {
-        item.style.width = "100%";
-        item.style.display = "block";
-        item.style.padding = "20px 0";
-      }
-
-    }
+    if(this.state.expanded)
+      this.handleStateChange( { sidebarWidth: '60px', expanded: false } );
     else
-    {//expand the sidebar
-      this.setState({ width: '200px', expanded: true })
-
-      expandOrCollapseButton.style.left = "188px";
-      expandOrCollapseButtonInnerText.innerHTML = "<";
-      createButton.style.marginLeft = "20px";
-      createButton.style.width = "140px";
-      createButton.style.padding = "10px";
-      createButton.getElementsByTagName("div")[0].style.display = "block";
-
-      for(var item of sidebarBottomToolbarListItems)
-      {
-        item.style.width = "33.3%";
-        item.style.display = "inline-block";
-        item.style.padding = "0";
-      }
-    }
-  }
-
-  updateProjectModalState() {
-    if(!this.state.isProjectModalOpen)
-        this.setState( { isProjectModalOpen: true }, () => {console.log("SIDEBAR: " + this.state.isProjectModalOpen)} );
-    else
-        this.setState( { isProjectModalOpen: false }, () => {console.log("SIDEBAR: " + this.state.isProjectModalOpen)} ) ;
-  }
-
-  childUpdate(){
-    this.setState( { isProjectModalOpen: false } );
-    this.props.parentUpdate();
+      this.handleStateChange( { sidebarWidth: '200px', expanded: true } );
   }
 
   componentWillMount(){
@@ -117,7 +65,54 @@ class MainSidebar extends React.Component {
   }
 
   componentDidUpdate(){
-    
+    let logo = document.getElementById("logo");
+    let expandOrCollapseButton = document.getElementById("expandOrCollapseButton");
+    let expandOrCollapseButtonInnerText = document.getElementById("expandOrCollapseInnerText");
+    let createButton = document.getElementById("createButton");
+    let sidebarListItems = document.getElementById("mainSidebarList").getElementsByTagName("li");
+    let sidebarBottomToolbarListItems = document.getElementById("sidebarBottomToolbar").getElementsByTagName("li");
+
+    if(this.state.expanded)
+    {//expand the sidebar
+      
+      expandOrCollapseButton.style.left = "188px";
+      expandOrCollapseButtonInnerText.innerHTML = "<";
+      createButton.style.marginLeft = "20px";
+      createButton.style.width = "140px";
+      createButton.style.padding = "10px";
+      createButton.getElementsByTagName("div")[0].style.display = "block";
+
+      for(var item of sidebarBottomToolbarListItems)
+      {
+        item.style.width = "33.3%";
+        item.style.display = "inline-block";
+        item.style.padding = "0";
+      }
+
+    }
+    else
+    {//collapse the sidebar
+
+      expandOrCollapseButton.style.left = "48px";
+      expandOrCollapseButtonInnerText.innerHTML = ">";
+      createButton.style.marginLeft = "0";
+      createButton.style.width = "auto";
+      createButton.style.padding = "10px 20px";
+      createButton.getElementsByTagName("div")[0].style.display = "none";
+
+      for(var item of sidebarBottomToolbarListItems)
+      {
+        item.style.width = "100%";
+        item.style.display = "block";
+        item.style.padding = "20px 0";
+      }
+    }
+  }
+
+  handleStateChange(newState){
+    //event.preventDefault();
+    this.setState( newState, () => { console.log(this.state) }  );
+    this.props.parentUpdate( newState );
   }
 
   render(){
@@ -125,13 +120,13 @@ class MainSidebar extends React.Component {
     return (
       <div>
         
-        <Modal isProjectModalOpen = { this.state.isProjectModalOpen }  parentUpdate = { this.childUpdate }/>
+        <Modal isProjectModalOpen = { this.state.isProjectModalOpen }  parentUpdate = { this.handleStateChange }/>
 
-        <aside id = "mainSidebar" style = {{width: this.state.width, height: this.state.height}}>
+        <aside id = "mainSidebar" style = {{width: this.state.sidebarWidth, height: this.state.height}}>
 
             <a id = "logo" href = "/dashboard"> <img src = { logo } /> <div id = "logoInnerText"> consilium </div> </a>
 
-            <div id = "createButton" onClick = { this.updateProjectModalState }> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </div>
+            <div id = "createButton" onClick = { () => {this.handleStateChange( { isProjectModalOpen: true } )} }> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </div>
     
             <ul id = "mainSidebarList">
 

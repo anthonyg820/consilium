@@ -2,20 +2,24 @@ import React from 'react';
 import MainSidebar from '../Sidebar/MainSidebar.js';
 import '../Core.css';
 import './Projects.css';
-import folderIcon from '../res/Icons/folder-white.svg';
-import tasksIcon from '../res/Icons/todo-white.svg';
-import activityIcon from '../res/Icons/time-white.svg';
-import addIcon from '../res/Icons/add-white.svg';
-import imgPlaceholder from '../res/ImgPlaceholder.png';
-import softwareProjectImg from '../res/Icons/code_custom.svg';
-import businessProjectImg from '../res/Icons/business_custom.svg';
+import folderIcon from '../../res/Icons/folder-white.svg';
+import tasksIcon from '../../res/Icons/todo-white.svg';
+import activityIcon from '../../res/Icons/time-white.svg';
+import addIcon from '../../res/Icons/add-white.svg';
+import imgPlaceholder from '../../res/ImgPlaceholder.png';
+import softwareProjectImg from '../../res/Icons/code_custom.svg';
+import businessProjectImg from '../../res/Icons/business_custom.svg';
 
 
 class SearchAndFilter extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { projectFilter: 'user' }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState( { projectFilter: nextProps.projectFilter } )
     }
 
     render() {
@@ -25,7 +29,14 @@ class SearchAndFilter extends React.Component {
 
                 <input id = "projectSearch" type = "text" placeholder = "Search" />
 
-                <select id = "projectFilter" onChange = { this.props.updateProjectTableState }>
+                <select id = "projectFilter" onChange = { 
+                        () => { 
+                            if(this.state.projectFilter == 'user')
+                                this.props.parentUpdate( { projectFilter: 'all' } );
+                            else
+                                this.props.parentUpdate( { projectFilter: 'user' } );
+                        } 
+                    }>
 
                     <option value = "myProjects"> My Projects </option>
                     <option value = "allProjects"> All Projects </option>
@@ -42,7 +53,7 @@ class ProjectsTable extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { projectFilter: this.props.projectFilter }
+        this.state = { projectFilter: 'user' }
     }
 
     async getUserProjects() {
@@ -56,10 +67,6 @@ class ProjectsTable extends React.Component {
                 this.setState({ projects: data }, () => {
                     this.loadProjects()
                 })
-                //console.log("test");
-                //console.log(response);
-                // console.log(this.state.projects[0]);
-                // console.log(this.state);
             });
     }
 
@@ -79,20 +86,6 @@ class ProjectsTable extends React.Component {
                 // console.log(this.state.projects[0]);
                 // console.log(this.state);
             });
-    }
-
-    componentWillMount() {
-        if(this.props.projectFilter == 'user')
-            this.getUserProjects();
-        else
-            this.getAllProjects();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.projectFilter == 'user')
-            this.getUserProjects();
-        else
-            this.getAllProjects();
     }
 
     loadProjects() {
@@ -118,6 +111,24 @@ class ProjectsTable extends React.Component {
 
             projectsTableBody.appendChild(newNode);
         }
+    }
+
+    componentWillMount() {
+        if(this.state.projectFilter == 'user')
+            this.getUserProjects();
+        else
+            this.getAllProjects();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState( { projectFilter: nextProps.projectFilter } )
+    }
+
+    componentDidUpdate(){
+        if(this.state.projectFilter == 'user')
+            this.getUserProjects();
+        else
+            this.getAllProjects();
     }
 
     render() {
@@ -159,14 +170,13 @@ class Projects extends React.Component {
             currentTab: 1, 
             width: screenWidth-280, 
             height: screenHeight-40, 
+            sidebarWidth: '200px',
             projectFilter: 'user',
             isProjectModalOpen: false 
         };
         window.addEventListener('resize', this.handleResize)
 
-        this.updateProjectTableState = this.updateProjectTableState.bind(this);
-        this.updateProjectModalState = this.updateProjectModalState.bind(this);
-        this.childUpdate = this.childUpdate.bind(this);
+        this.handleStateChange = this.handleStateChange.bind(this);
     }
 
     handleResize = () => {
@@ -175,40 +185,25 @@ class Projects extends React.Component {
         this.setState( { width: screenWidth-280, height: screenHeight-40 } )
     }
 
-    updateProjectTableState(){
-        if(this.state.projectFilter == 'user')
-            this.setState( {projectFilter: 'all'} )
-        else if(this.state.projectFilter == 'all')
-            this.setState( {projectFilter: 'user'} )
-        
-        console.log(this.state);
-    }
-
-    updateProjectModalState() {
-        if(!this.state.isProjectModalOpen)
-            this.setState( { isProjectModalOpen: true }, () => {console.log("PARENT: " + this.state.isProjectModalOpen)} );
-        else
-            this.setState( { isProjectModalOpen: false }, () => {console.log("PARENT: " + this.state.isProjectModalOpen)} ) ;
-    }
-
-    childUpdate(){
-        this.setState( { isProjectModalOpen: false } );
+    handleStateChange(newState){
+        //event.preventDefault();
+        this.setState( newState, () => {console.log(this.state)} );
     }
 
     render() {
 		return (
             <div>
 
-                <MainSidebar currentTab = { this.state.currentTab } isProjectModalOpen = { this.state.isProjectModalOpen } parentUpdate = { this.childUpdate }/>
+                <MainSidebar currentTab = { this.state.currentTab } isProjectModalOpen = { this.state.isProjectModalOpen } parentUpdate = { this.handleStateChange }/>
 
                 <div id = "projectsContentArea" style = {{ width: this.state.width, height: this.state.height }}>
 
                     <h2 onClick = { this.updateProjectModalState }> Projects </h2>
 
-                    <div id = "newProjectButton"> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </div>
+                    <div id = "newProjectButton" onClick = { () => { this.handleStateChange( { isProjectModalOpen: true } ) } }> <div id = "createButtonInnerText"> New project </div> <img id = "createButtonImg" src = { addIcon } /> </div>
 
-                    <div> <SearchAndFilter updateProjectTableState = { this.updateProjectTableState } /> </div>
-                    <div> <ProjectsTable projectFilter = { this.state.projectFilter } /> </div>
+                    <div> <SearchAndFilter projectFilter = { this.state.projectFilter } parentUpdate = { this.handleStateChange }/> </div>
+                    <div> <ProjectsTable projectFilter = { this.state.projectFilter }/> </div>
 
                 </div>
 

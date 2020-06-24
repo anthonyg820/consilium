@@ -2,12 +2,12 @@ import React from 'react';
 import MainSidebar from '../Sidebar/MainSidebar.js';
 import '../Core.css';
 import './Dashboard.css';
-import folderIcon from '../res/Icons/folder-white.svg';
-import tasksIcon from '../res/Icons/todo-white.svg';
-import activityIcon from '../res/Icons/time-white.svg';
-import imgPlaceholder from '../res/ImgPlaceholder.png';
-import softwareProjectImg from '../res/Icons/code_custom.svg';
-import businessProjectImg from '../res/Icons/business.svg';
+import folderIcon from '../../res/Icons/folder-white.svg';
+import tasksIcon from '../../res/Icons/todo-white.svg';
+import activityIcon from '../../res/Icons/time-white.svg';
+import imgPlaceholder from '../../res/ImgPlaceholder.png';
+import softwareProjectImg from '../../res/Icons/code_custom.svg';
+import businessProjectImg from '../../res/Icons/business.svg';
 
 
 class ProjectsWidget extends React.Component {
@@ -238,8 +238,17 @@ class Dashboard extends React.Component {
         super(props);
         let screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         let screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        this.state = { currentTab: 0, width: screenWidth-280, height: screenHeight-40 };
-        window.addEventListener('resize', this.handleResize)
+        this.state = { 
+            currentTab: 0, 
+            width: screenWidth-280, 
+            height: screenHeight-40, 
+            sidebarWidth: '200px',
+            isProjectModalOpen: false 
+        };
+
+        window.addEventListener('resize', this.handleResize);
+
+        this.handleStateChange = this.handleStateChange.bind(this);
     }
 
     handleResize = () => {
@@ -248,11 +257,16 @@ class Dashboard extends React.Component {
         this.setState( { width: screenWidth-280, height: screenHeight-40 } )
     }
 
+    handleStateChange(newState){
+        //event.preventDefault();
+        this.setState( newState, () => { console.log("DASHBOARD: " + this.state.isProjectModalOpen) } );
+    }
+
     render() {
 		return (
             <div>
 
-                <MainSidebar currentTab = { this.state.currentTab }/>
+                <MainSidebar currentTab = { this.state.currentTab } isProjectModalOpen = { this.state.isProjectModalOpen } parentUpdate = { this.handleStateChange }/>
 
                 <div id = "dashboardContentArea" style = {{ width: this.state.width, height: this.state.height }}>
 

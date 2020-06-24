@@ -66,56 +66,6 @@
     box-shadow: 0px 0px 8px #000000;
 }
 
-#registerForm{
-    width: 80%;
-    display: block;
-    margin: auto;
-    padding: 20px 0;
-}
-
-#registerForm label{
-    display: block;
-    font-size: 14px;
-    margin-bottom: 4px;
-    color: var(--primary-gray);
-    font-family: "Arial";
-}
-
-#registerForm input[type *= "email"], #registerForm input[type *= "password"], #registerForm input[type *= "text"]{
-    padding: 8px 5%;
-    background: #c9c9c9;
-    border: 0;
-    outline: 0;
-    display: block;
-    width: 90%;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    font-family: "Arial";
-}
-
-#registerForm input[type = "button"]{
-    width: 100%;
-    display: block;
-    text-align: center;
-    background: var(--primary-gray);
-    color: #ffffff;
-    padding: 10px 0;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    font-size: 18px;
-    font-family: "Arial";
-}
-
-#registerForm input[type = "button"]:hover{
-    background: var(--primary-gray-hover);
-}
-
 #registerPageRightContent a{
     color: #ffffff;
     font-family: "Arial";
