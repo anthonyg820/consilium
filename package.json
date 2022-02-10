@@ -42,7 +42,7 @@
   "devDependencies": {
     "eslint-plugin-flowtype": "^4.6.0",
     "fibers": "^4.0.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "typescript": "^3.8.3"
   }
 }
